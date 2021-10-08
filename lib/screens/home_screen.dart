@@ -218,7 +218,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(left: 10),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return OperationCard();
+                  return OperationCard(
+                    operation: datas[index].name,
+                    selectedIcon: datas[index].selectedIcon,
+                    unselectedIcon: datas[index].unselectedIcon,
+                    isSelected: current == index,
+                    context: this,
+                  
+                  );
               }),
             )
 
@@ -234,8 +241,9 @@ class OperationCard extends StatefulWidget {
   final String selectedIcon;
   final String unselectedIcon;
   final bool isSelected;
+  _HomeScreenState context;
 
-  OperationCard({this.operation, this.selectedIcon, this.unselectedIcon, this.isSelected});
+  OperationCard({this.operation, this.selectedIcon, this.unselectedIcon, this.isSelected, this.context});
 
   @override
   _OperationCardState createState() => _OperationCardState();
