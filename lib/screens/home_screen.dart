@@ -215,14 +215,62 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 123,
               child: ListView.builder(
                 itemCount: datas.length,
+                padding: EdgeInsets.only(left: 10),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-
+                  return OperationCard();
               }),
             )
 
           ],
         ),
+      ),
+    );
+  }
+}
+
+class OperationCard extends StatefulWidget {
+  final String operation;
+  final String selectedIcon;
+  final String unselectedIcon;
+  final bool isSelected;
+
+  OperationCard({this.operation, this.selectedIcon, this.unselectedIcon, this.isSelected});
+
+  @override
+  _OperationCardState createState() => _OperationCardState();
+}
+
+class _OperationCardState extends State<OperationCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 16),
+      width: 123,
+      height: 123,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: kTenBlackColor,
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: Offset(8.0, 8.0)
+          ),
+        ],
+        borderRadius: BorderRadius.circular(15),
+        color: widget.isSelected ? kBlackColor : kWhiteColor,
+      ),
+      child: Column(
+        children: <Widget>[
+          SvgPicture.asset(widget.isSelected? widget.isSelected: widget.unselectedIcon),
+          SizedBox(height: 9,), 
+          Text(widget.operation, textAlign: TextAlign.center, style: GoogleFonts.inter(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: widget.isSelected? kWhiteColor : kBlueColor
+          ),)
+
+        ],
       ),
     );
   }
