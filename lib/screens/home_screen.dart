@@ -218,13 +218,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(left: 10),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return OperationCard(
-                    operation: datas[index].name,
-                    selectedIcon: datas[index].selectedIcon,
-                    unselectedIcon: datas[index].unselectedIcon,
-                    isSelected: current == index,
-                    context: this,
-                  
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        current = index;
+                      });
+                    },
+                    child: OperationCard(
+                      operation: datas[index].name,
+                      selectedIcon: datas[index].selectedIcon,
+                      unselectedIcon: datas[index].unselectedIcon,
+                      isSelected: current == index,
+                      context: this,
+                    
+                    ),
                   );
               }),
             )
@@ -270,7 +277,7 @@ class _OperationCardState extends State<OperationCard> {
       ),
       child: Column(
         children: <Widget>[
-          SvgPicture.asset(widget.isSelected? widget.isSelected: widget.unselectedIcon),
+          SvgPicture.asset(widget.isSelected? widget.selectedIcon: widget.unselectedIcon),
           SizedBox(height: 9,), 
           Text(widget.operation, textAlign: TextAlign.center, style: GoogleFonts.inter(
             fontSize: 15,
