@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttermoneymanagementapp/constants/color_constant.dart';
 import 'package:fluttermoneymanagementapp/models/card_model.dart';
+import 'package:fluttermoneymanagementapp/models/operation_model.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +13,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  // Current selected
+  int current = 0;
+
+  // Handle Indicator
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for(var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,17 +141,86 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 27, 
                             height: 27,
                         ),
+
                         Positioned(
-                          left: 49,
-                          bottom: 49,
-                          child: Text('CARD HOLDERNAME')
-                        )
+                          left: 29,
+                          bottom: 45,
+                          child: Text('CARD HOLDERNAME', style: GoogleFonts.inter(
+                            color: kWhiteColor
+                          ),)
+                        ),
+
+                        Positioned(
+                          left: 29,
+                          bottom: 21,
+                          child: Text(cards[index].user, style: GoogleFonts.inter(
+                            color: kWhiteColor
+                          ),)
+                        ),
+                   
+                        Positioned(
+                          left: 202,
+                          bottom: 45,
+                          child: Text('EXPIRY DATE', style: GoogleFonts.inter(
+                            color: kWhiteColor
+                          ),)
+                        ),
+
+                        Positioned(
+                          left: 202,
+                          bottom: 21,
+                          child: Text(cards[index].cardExpired, style: GoogleFonts.inter(
+                            color: kWhiteColor
+                          ),)
+                        ),
+                             
                    
                     ],
                   )
                 );
               }),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 16 ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[ Text('Operations', style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: kBlackColor
+                ),),
+                 Row(
+                  children: map<Widget>(datas, (index, selected) {
+                    return Container(
+                      alignment: Alignment.centerLeft,
+                      height: 9,
+                      width: 9,
+                      margin: EdgeInsets.only(right: 8),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: current == index
+                          ? kBlueColor 
+                          : kTwentyBlueColor
+                      ),
+                    );
+                  }),
+                
+                )
+                ],
+              ),
+            ),
+
+            Container(
+              height: 123,
+              child: ListView.builder(
+                itemCount: datas.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+
+              }),
             )
+
           ],
         ),
       ),
