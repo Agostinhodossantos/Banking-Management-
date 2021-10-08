@@ -273,9 +273,11 @@ class _OperationCardState extends State<OperationCard> {
           ),
         ],
         borderRadius: BorderRadius.circular(15),
-        color: widget.isSelected ? kBlackColor : kWhiteColor,
+        color: widget.isSelected ? kBlueColor : kWhiteColor,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           SvgPicture.asset(widget.isSelected? widget.selectedIcon: widget.unselectedIcon),
           SizedBox(height: 9,), 
